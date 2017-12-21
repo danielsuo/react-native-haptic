@@ -1,5 +1,5 @@
 declare const ReactNativeHaptic: {
-  generate(type: 'impact' | 'notification' | 'selection'): void
+  generate(type: 'impactLight' | 'impactMedium' | 'impactHeavy' | 'notificationSuccess' | 'notificationWarning' |  'notificationError' |'selection'): void
 }
 
 export default ReactNativeHaptic;

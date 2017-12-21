@@ -13,9 +13,13 @@
 @implementation ReactNativeHaptic
 
 {
-  UIImpactFeedbackGenerator *_impactFeedback;
-  UINotificationFeedbackGenerator *_notificationFeedback;
-  UISelectionFeedbackGenerator *_selectionFeedback;
+    UIImpactFeedbackGenerator *impactLight;
+    UIImpactFeedbackGenerator *impactMedium;
+    UIImpactFeedbackGenerator *impactHeavy;
+    UINotificationFeedbackGenerator *notificationSuccess;
+    UINotificationFeedbackGenerator *notificationError;
+    UINotificationFeedbackGenerator *notificationWarning;
+    UISelectionFeedbackGenerator *selectionFeedback;
 }
 @synthesize bridge = _bridge;
 
@@ -25,9 +29,39 @@ RCT_EXPORT_MODULE()
 {
   _bridge = bridge;
   if ([UIFeedbackGenerator class]) {
-    _impactFeedback = [UIImpactFeedbackGenerator new];
-    _notificationFeedback = [UINotificationFeedbackGenerator new];
-    _selectionFeedback = [UISelectionFeedbackGenerator new];
+      
+      selectionFeedback = [UISelectionFeedbackGenerator new];
+      
+      impactLight = [[UIImpactFeedbackGenerator alloc] init];
+      [impactLight initWithStyle:(UIImpactFeedbackStyleLight)];
+      [impactLight impactOccurred];
+      impactLight = NULL;
+      
+      impactMedium = [[UIImpactFeedbackGenerator alloc] init];
+      [impactMedium initWithStyle:(UIImpactFeedbackStyleMedium)];
+      [impactMedium impactOccurred];
+      impactMedium = NULL;
+      
+      impactHeavy = [[UIImpactFeedbackGenerator alloc] init];
+      [impactHeavy initWithStyle:(UIImpactFeedbackStyleHeavy)];
+      [impactHeavy impactOccurred];
+      impactHeavy = NULL;
+      
+      notificationSuccess = [[UINotificationFeedbackGenerator alloc] init];
+      [notificationSuccess initWithStyle:(UINotificationFeedbackStyleSuccess)];
+      [notificationSuccess impactOccurred];
+      notificationSuccess = NULL;
+      
+      notificationWarning = [[UINotificationFeedbackGenerator alloc] init];
+      [notificationWarning initWithStyle:(UINotificationFeedbackStyleWarning)];
+      [notificationWarning impactOccurred];
+      notificationWarning = NULL;
+      
+      notificationError = [[UINotificationFeedbackGenerator alloc] init];
+      [notificationError initWithStyle:(UINotificationFeedbackStyleError)];
+      [notificationError impactOccurred];
+      notificationError = NULL;
+      
   }
 }
 
@@ -38,13 +72,21 @@ RCT_EXPORT_MODULE()
 
 RCT_EXPORT_METHOD(generate:(NSString *)type)
 {
-  if ([type isEqual: @"impact"]) {
-    [_impactFeedback impactOccurred];
-  } else if ([type isEqual:@"notification"]) {
-    [_notificationFeedback notificationOccurred:UINotificationFeedbackTypeWarning];
+  if ([type isEqual: @"light"]) {
+      [impactLight impactOccurred:UIImpactFeedbackTypeLight];
+  } else if ([type isEqual:@"medium"]) {
+      [impactMedium impactOccurred:UIImpactFeedbackTypeMedium];
+  } else if ([type isEqual:@"heavy"]) {
+      [impactHeavy impactOccurred:UIImpactFeedbackTypeHeavy;
+  } else if ([type isEqual:@"warning"]) {
+    [notificationWarning notificationOccurred:UINotificationFeedbackTypeWarning];
+  } else if ([type isEqual:@"success"]) {
+      [notificationSuccess notificationOccurred:UINotificationFeedbackTypeSuccess];
+  } else if ([type isEqual:@"error"]) {
+      [notificationError notificationOccurred:UINotificationFeedbackTypeError];
   } else if ([type isEqual:@"selection"]) {
-    [_selectionFeedback selectionChanged];
-  }
+    [selectionFeedback selectionChanged];
+  } 
 }
 
 RCT_EXPORT_METHOD(prepare)

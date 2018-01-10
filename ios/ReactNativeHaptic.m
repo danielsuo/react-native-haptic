@@ -32,36 +32,29 @@ RCT_EXPORT_MODULE()
       
       selectionFeedback = [UISelectionFeedbackGenerator new];
       
-      impactLight = [[UIImpactFeedbackGenerator alloc] init];
-      [impactLight initWithStyle:(UIImpactFeedbackStyleLight)];
+      impactLight = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
       [impactLight impactOccurred];
       impactLight = NULL;
       
-      impactMedium = [[UIImpactFeedbackGenerator alloc] init];
-      [impactMedium initWithStyle:(UIImpactFeedbackStyleMedium)];
+      impactMedium = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
       [impactMedium impactOccurred];
       impactMedium = NULL;
       
-      impactHeavy = [[UIImpactFeedbackGenerator alloc] init];
-      [impactHeavy initWithStyle:(UIImpactFeedbackStyleHeavy)];
+      impactHeavy = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
       [impactHeavy impactOccurred];
       impactHeavy = NULL;
       
       notificationSuccess = [[UINotificationFeedbackGenerator alloc] init];
-      [notificationSuccess initWithStyle:(UINotificationFeedbackStyleSuccess)];
-      [notificationSuccess impactOccurred];
+      [notificationSuccess notificationOccurred:(UINotificationFeedbackTypeSuccess)];
       notificationSuccess = NULL;
       
       notificationWarning = [[UINotificationFeedbackGenerator alloc] init];
-      [notificationWarning initWithStyle:(UINotificationFeedbackStyleWarning)];
-      [notificationWarning impactOccurred];
+      [notificationSuccess notificationOccurred:(UINotificationFeedbackTypeWarning)];
       notificationWarning = NULL;
       
       notificationError = [[UINotificationFeedbackGenerator alloc] init];
-      [notificationError initWithStyle:(UINotificationFeedbackStyleError)];
-      [notificationError impactOccurred];
+      [notificationSuccess notificationOccurred:(UINotificationFeedbackTypeError)];
       notificationError = NULL;
-      
   }
 }
 

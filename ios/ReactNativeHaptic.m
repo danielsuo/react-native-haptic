@@ -12,6 +12,7 @@
 
 @implementation ReactNativeHaptic
 
+    // TODO: Sigh...this is just terrible work. We should only be creating generators for the one requested, not all of them.
 {
     UIImpactFeedbackGenerator *impactLight;
     UIImpactFeedbackGenerator *impactMedium;
@@ -29,32 +30,13 @@ RCT_EXPORT_MODULE()
 {
   _bridge = bridge;
   if ([UIFeedbackGenerator class]) {
-      
       selectionFeedback = [UISelectionFeedbackGenerator new];
-      
       impactLight = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleLight];
-      [impactLight impactOccurred];
-      impactLight = NULL;
-      
       impactMedium = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleMedium];
-      [impactMedium impactOccurred];
-      impactMedium = NULL;
-      
       impactHeavy = [[UIImpactFeedbackGenerator alloc] initWithStyle:UIImpactFeedbackStyleHeavy];
-      [impactHeavy impactOccurred];
-      impactHeavy = NULL;
-      
       notificationSuccess = [[UINotificationFeedbackGenerator alloc] init];
-      [notificationSuccess notificationOccurred:(UINotificationFeedbackTypeSuccess)];
-      notificationSuccess = NULL;
-      
       notificationWarning = [[UINotificationFeedbackGenerator alloc] init];
-      [notificationSuccess notificationOccurred:(UINotificationFeedbackTypeWarning)];
-      notificationWarning = NULL;
-      
       notificationError = [[UINotificationFeedbackGenerator alloc] init];
-      [notificationSuccess notificationOccurred:(UINotificationFeedbackTypeError)];
-      notificationError = NULL;
   }
 }
 
@@ -66,11 +48,11 @@ RCT_EXPORT_MODULE()
 RCT_EXPORT_METHOD(generate:(NSString *)type)
 {
   if ([type isEqual: @"light"]) {
-      [impactLight impactOccurred:UIImpactFeedbackTypeLight];
+      [impactLight impactOccurred];
   } else if ([type isEqual:@"medium"]) {
-      [impactMedium impactOccurred:UIImpactFeedbackTypeMedium];
+      [impactMedium impactOccurred];
   } else if ([type isEqual:@"heavy"]) {
-      [impactHeavy impactOccurred:UIImpactFeedbackTypeHeavy;
+      [impactHeavy impactOccurred];
   } else if ([type isEqual:@"warning"]) {
     [notificationWarning notificationOccurred:UINotificationFeedbackTypeWarning];
   } else if ([type isEqual:@"success"]) {
@@ -85,7 +67,18 @@ RCT_EXPORT_METHOD(generate:(NSString *)type)
 RCT_EXPORT_METHOD(prepare)
 {
   // Only calling prepare on one generator, it's sole purpose is to awake the taptic engine
-  [_impactFeedback prepare];
+  [impactLight prepare];
+}
+    
+RCT_EXPORT_METHOD(done)
+{
+    impactLight = nil;
+    impactMedium = nil;
+    impactHeavy = nil;
+    notificationSuccess = nil;
+    notificationWarning = nil;
+    notificationError = nil;
+    selectionFeedback = nil;
 }
 
 @end
